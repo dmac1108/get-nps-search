@@ -57,18 +57,30 @@ function getData(stateSearch,numResults){
    .catch(err => console.log(err));*/
 
    fetch(url)
-   .then(response => response.json())
-   .then(responseJson => displayResults(responseJson));
+   /*.then(response => {
+    if(response.ok)
+    {response.json()}
+    }
+       )*/
+    .then(response => response.json())
+   .then(responseJson => displayResults(responseJson))
+   .catch(err => console.log(err));
 }
 
 
 function watchForm(){
  console.log("WatchForm function started");
  $('form').submit(function(){
+    const regex = /^[A-Za-z]{2}(?:,[A-Za-z]{2})*$/i;
+    if($('input[type="text"]').val().match(regex)){
     const stateSearch = $('input[type="text"]').val();
     const numResults = $('input[type="number"]').val()-1;
     event.preventDefault();
     getData(stateSearch,numResults);
+    }
+    else{
+        alert("Enter the two letter state abbreviation followed by commas");
+    }
  });
  
 }
