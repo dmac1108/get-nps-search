@@ -14,7 +14,29 @@ function displayResults(responseJson){
     <p>${responseJson.data[i].description}</p><a href="${responseJson.data[i].url}">${responseJson.data[i].url}</a>
     </article>`;
     //console.log(domAppendString);
+
     $('.js-results').append(domAppendString);
+    
+    for (let j=0; j<responseJson.data[i].addresses.length; j++){
+      //only append the physical address to the list
+      if(responseJson.data[i].addresses[j].type === 'Physical'){
+      let line2String = "";
+      let line3String = "";
+      let line1String = `<p>${responseJson.data[i].addresses[j].line1}</p>`;
+      if(responseJson.data[i].addresses[j].line2 != null)
+      {
+        line2String = `<p>${responseJson.data[i].addresses[j].line2}</p>`;
+      }
+      if(responseJson.data[i].addresses[j].line3 != null)
+      {
+        line3String = `<p>${responseJson.data[i].addresses[j].line3}</p>`;
+      }
+      let cityStateZip = `<p>${responseJson.data[i].addresses[j].city}, ${responseJson.data[i].addresses[j].stateCode} ${responseJson.data[i].addresses[j].postalCode}</p>`
+      let addressString = line1String + line2String + line3String + cityStateZip;
+
+      $('.js-results').append(addressString);
+    }
+    }
     
   }
 }
