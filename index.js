@@ -32,7 +32,6 @@ function getData(stateSearch,numResults){
    const params = {
        stateCode: `${stateSearch}`,
        limit: `${numResults}`,
-       start: 1,
        api_key: APIKey
    };
    const queryString = formatQueryParams(params);
@@ -67,7 +66,7 @@ function watchForm(){
  console.log("WatchForm function started");
  $('form').submit(function(){
     const stateSearch = $('input[type="text"]').val();
-    const numResults = $('input[type="number"]').val();
+    const numResults = $('input[type="number"]').val()-1;
     event.preventDefault();
     getData(stateSearch,numResults);
  });
