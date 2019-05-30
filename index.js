@@ -8,7 +8,7 @@ function displayResults(responseJson){
   console.log("in the display Results function")
   for (let i=0; i<responseJson.data.length; i++){
      
-    console.log(responseJson.data[i]);
+    console.log(responseJson.data[i].addresses);
 
     let domAppendString = `<article><h2>${responseJson.data[i].fullName}</h2>
     <p>${responseJson.data[i].description}</p><a href="${responseJson.data[i].url}">${responseJson.data[i].url}</a>
@@ -32,6 +32,7 @@ function getData(stateSearch,numResults){
    const params = {
        stateCode: `${stateSearch}`,
        limit: `${numResults}`,
+       fields: "addresses",
        api_key: APIKey
    };
    const queryString = formatQueryParams(params);
